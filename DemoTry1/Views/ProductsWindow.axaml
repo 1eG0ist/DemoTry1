@@ -1,0 +1,80 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="using:DemoTry1.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:utils="clr-namespace:DemoTry1.Utils"
+        mc:Ignorable="d" Width="800" Height="600"
+        x:Class="DemoTry1.Views.ProductsWindow"
+        x:DataType="vm:ProductsWindowViewModel"
+        Title="ProductsWindow">
+    
+    <Window.Resources>
+        <utils:BitmapConverter x:Key="BitmapConverter"/>
+    </Window.Resources>
+    
+    <Grid RowDefinitions="50 50 * 50" ColumnDefinitions="50 * 50">
+        
+        <Button Grid.Row="0" Grid.Column="2" Content="Exit" Click="Exit_OnClick" HorizontalAlignment="Center"/>
+        
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Products" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                   FontSize="24" FontWeight="Black" Foreground="Indigo"/>
+        
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+            <TextBlock Text="Sort by price" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="{Binding IsOrderByPrice}"/>
+            <TextBox Text="{Binding FilterText}" Watermark="qwerty"/>
+            <TextBlock Text="Manufacturer" VerticalAlignment="Center"/>
+            <ComboBox Name="TypeSelector" ItemsSource="{Binding Manufacturers}"
+                      SelectedItem="{Binding SelectedManufacturer}" HorizontalAlignment="Center">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ManufacturerName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+        
+        <ListBox Name="ProductsList" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding UserProducts}" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="20">
+                        <Border BorderThickness="3" BorderBrush="Indigo" Margin="5" Padding="3">
+                            <Image Source="{Binding ProductImagePath, Converter={StaticResource BitmapConverter}}" Width="100" Height="100" Stretch="Uniform"/>
+                        </Border>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Spacing="20">
+                                <TextBlock Foreground="Gray" FontSize="14" Text="Name"/>
+                                <TextBlock Text="{Binding ProductName}" FontSize="18" FontWeight="Black" Foreground="Aquamarine"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="20">
+                                <TextBlock Foreground="Gray" FontSize="14" Text="Description"/>
+                                <TextBlock Text="{Binding ProductDescription}" FontSize="18" Foreground="Aquamarine"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="20">
+                                <TextBlock Foreground="Gray" FontSize="14" Text="Manufacturer"/>
+                                <TextBlock Text="{Binding ProductManufacturer}" FontSize="18" Foreground="Aquamarine"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="20">
+                                <TextBlock Foreground="Gray" FontSize="14" Text="Price"/>
+                                <TextBlock Text="{Binding ProductPrice}" FontSize="18" Foreground="Aquamarine"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Spacing="10" VerticalAlignment="Center">
+                            <TextBlock Foreground="Gray" FontSize="14" Text="Count at the storage"/>
+                            <TextBlock Text="{Binding ProductCount}" FontSize="18" Foreground="Aquamarine"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" IsVisible="{Binding IsAdmin}">
+            <Button Content="Create Product" Click="CreateProduct_OnClick"/>
+            <Button Content="Edit Product" Click="EditProduct_OnClick"/>
+            <Button Content="Delete Product" Click="DeleteProduct_OnClick"/>
+        </StackPanel>
+        
+    </Grid>
+        
+</Window>

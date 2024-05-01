@@ -1,0 +1,27 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="using:DemoTry1.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="400" Height="250"
+        x:Class="DemoTry1.Views.Registration"
+        x:DataType="vm:RegistrationViewModel"
+        Title="Registration">
+    
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10" VerticalAlignment="Center"  Width="300">
+        
+        <TextBlock HorizontalAlignment="Center" Text="Registration"/>
+        
+        <TextBox Watermark="Name" Text="{Binding NameController}"/>
+        
+        <TextBox Watermark="Password" Text="{Binding PassController}"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+            <Button HorizontalAlignment="Center" Content="Quest" Click="Quest_OnClick"/>
+            
+            <Button HorizontalAlignment="Center" Content="Log In" Click="LogIn_OnClick"/>
+        </StackPanel>
+        
+    </StackPanel>
+    
+</Window>
