@@ -64,7 +64,7 @@ public class ProductsWindowViewModel : ViewModelBase
     
     public ProductsWindowViewModel()
     {
-        AllUserProducts = new List<Product>();
+        AllUserProducts = SessionData.Products;
 
         UserProducts = new ObservableCollection<Product>(AllUserProducts);
 

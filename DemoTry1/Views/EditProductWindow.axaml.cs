@@ -14,12 +14,23 @@ namespace DemoTry1.Views;
 public partial class EditProductWindow : Window
 {
     private SaveProductDelegate onSave;
-    
+
+    public override void Show()
+    {
+        SessionData.isEditWindowOpen = true;
+        base.Show();
+    }
+
     public EditProductWindow(Product product, SaveProductDelegate onSave)
     {
         InitializeComponent();
         DataContext = new EditProductWindowViewModel(product);
         this.onSave = onSave;
+        Closing += (s, e) =>
+        {
+            SessionData.isEditWindowOpen = false;
+            e.Cancel = false;
+        };
     }
     
     public EditProductWindow()
@@ -43,6 +54,7 @@ public partial class EditProductWindow : Window
         EditProductWindowViewModel viewModel = (EditProductWindowViewModel)DataContext!;
         viewModel.EditingProduct.ProductManufacturer = viewModel.SelectedManufacturer.ManufacturerName;
         onSave(viewModel.EditingProduct);
+        SessionData.isEditWindowOpen = false;
         this.Close();
     }
 }

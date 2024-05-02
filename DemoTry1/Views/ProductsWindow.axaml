@@ -17,6 +17,8 @@
         
         <Button Grid.Row="0" Grid.Column="2" Content="Exit" Click="Exit_OnClick" HorizontalAlignment="Center"/>
         
+        <Button Grid.Row="1" Grid.Column="2" Content="Cart" Click="OpenCartWindow_OnClick"></Button>
+        
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Products" HorizontalAlignment="Center" VerticalAlignment="Center" 
                    FontSize="24" FontWeight="Black" Foreground="Indigo"/>
         
@@ -33,9 +35,12 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            <TextBlock Text="Count products" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding UserProducts.Count}" VerticalAlignment="Center"/>
         </StackPanel>
         
-        <ListBox Name="ProductsList" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding UserProducts}" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ListBox Name="ProductsList" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding UserProducts}" 
+                 Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DoubleTapped="ProductsList_OnDoubleTapped">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Spacing="20">
@@ -71,8 +76,8 @@
         
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" IsVisible="{Binding IsAdmin}">
             <Button Content="Create Product" Click="CreateProduct_OnClick"/>
-            <Button Content="Edit Product" Click="EditProduct_OnClick"/>
             <Button Content="Delete Product" Click="DeleteProduct_OnClick"/>
+            <Button Content="Add to cart" Click="AddProductToCart_OnClick"/>
         </StackPanel>
         
     </Grid>
